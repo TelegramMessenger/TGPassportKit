@@ -1,0 +1,5 @@
+"PassportKit.Button.Title" = "Увійти через Telegram";
+"PassportKit.Button.GetTelegramAlertTitle" = "Отримати Telegram Messenger";
+"PassportKit.Button.GetTelegramAlertMessage" = "Для використання Telegram Passport потрібно встановити Telegram Messenger";
+"PassportKit.Button.GetTelegramAlertNotNow" = "Не зараз";
+"PassportKit.Button.GetTelegramAlertInstall" = "Встановити";

@@ -1,0 +1,5 @@
+"PassportKit.Button.Title" = "Entrar com Telegram";
+"PassportKit.Button.GetTelegramAlertTitle" = "Baixar Telegram Messenger";
+"PassportKit.Button.GetTelegramAlertMessage" = "You need to have Telegram Messenger installed to use Telegram Passport";
+"PassportKit.Button.GetTelegramAlertNotNow" = "Agora Não";
+"PassportKit.Button.GetTelegramAlertInstall" = "Instalar";

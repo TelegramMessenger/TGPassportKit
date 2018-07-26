@@ -1,0 +1,5 @@
+"PassportKit.Button.Title" = "Masuk dengan Telegram";
+"PassportKit.Button.GetTelegramAlertTitle" = "Dapatan Telegram Messenger";
+"PassportKit.Button.GetTelegramAlertMessage" = "Anda harus memiliki Telegram Messenger terinstal untuk masuk dengan Paspor Telegram";
+"PassportKit.Button.GetTelegramAlertNotNow" = "Tidak saat ini";
+"PassportKit.Button.GetTelegramAlertInstall" = "Pasang";

@@ -1,0 +1,5 @@
+"PassportKit.Button.Title" = "텔레그램으로 로그인";
+"PassportKit.Button.GetTelegramAlertTitle" = "텔레그램 메신저를 받으세요";
+"PassportKit.Button.GetTelegramAlertMessage" = "텔레그램 패스포트를 사용하려면 텔레그램 메신저를 설치하셔야 합니다";
+"PassportKit.Button.GetTelegramAlertNotNow" = "나중에";
+"PassportKit.Button.GetTelegramAlertInstall" = "설치";

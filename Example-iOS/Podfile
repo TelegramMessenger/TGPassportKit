@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Example-iOS' do
+  platform :ios, '9.0'
+
+  pod 'TGPassportKit', :path => '../'
+
+  # In production, you should use:
+  # pod 'TGPassportKit'
+
+end

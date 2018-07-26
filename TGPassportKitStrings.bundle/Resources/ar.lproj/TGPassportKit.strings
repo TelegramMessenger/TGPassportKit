@@ -1,0 +1,5 @@
+"PassportKit.Button.Title" = "تسجيل الدخول عبر تيليجرام";
+"PassportKit.Button.GetTelegramAlertTitle" = "احصل على تيليجرام";
+"PassportKit.Button.GetTelegramAlertMessage" = "تحتاج لوجود تيليجرام لاستخدام جواز تيليجرام";
+"PassportKit.Button.GetTelegramAlertNotNow" = "ليس الآن";
+"PassportKit.Button.GetTelegramAlertInstall" = "تنزيل";
