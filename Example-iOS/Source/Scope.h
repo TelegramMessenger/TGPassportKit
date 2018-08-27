@@ -5,15 +5,20 @@
 
 @property (nonatomic, readonly, strong) NSString *title;
 
-- (NSArray<NSString *> *)passportScope;
+- (NSArray<id<TGPScopeType>> *)passportScope;
 
 @end
 
 
 @interface ComplexScope : Scope
 
-- (instancetype)updateWithScope:(NSArray<NSString *> *)scope;
-+ (instancetype)scopeWithTitle:(NSString *)title scope:(NSArray<NSString *> *)scope;
+@property (nonatomic, readonly) NSArray *types;
+@property (nonatomic, readonly) BOOL oneOf;
+@property (nonatomic, readonly) BOOL translation;
+@property (nonatomic, readonly) BOOL selfie;
+
+- (instancetype)updateWithScope:(NSArray<id<TGPScopeType>> *)scope oneOf:(bool)oneOf translation:(bool)translation selfie:(bool)selfie;
++ (instancetype)scopeWithTitle:(NSString *)title scope:(NSArray<id<TGPScopeType>> *)scope oneOf:(bool)oneOf translation:(bool)translation selfie:(bool)selfie;
 
 @end
 
@@ -23,6 +28,6 @@
 @property (nonatomic, readonly) bool enabled;
 
 - (instancetype)updateWithEnabled:(bool)enabled;
-+ (instancetype)scopeWithTitle:(NSString *)title scope:(NSString *)scope enabled:(bool)enabled;
++ (instancetype)scopeWithTitle:(NSString *)title scope:(id<TGPScopeType>)scope enabled:(bool)enabled;
 
 @end

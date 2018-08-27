@@ -1,21 +1,16 @@
 import Cocoa
 import TGPassportKit
 
-let ExampleBotId : Int32 = 443863171
+let ExampleBotId : Int32 = 543260180
 let ExampleBotPublicKey = """
 -----BEGIN PUBLIC KEY-----
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAzmgKr0fPP4rB/TsNEweC
-hoG3ntUxuBTmHsFBW6CpABGdaTmKZSjAI/cTofhBgtRQIOdX0YRGHHHhwyLf49Wv
-9l+XexbJOa0lTsJSNMj8Y/9sZbqUl5ur8ZOTM0sxbXC0XKexu1tM9YavH+Lbrobk
-jt0+cmo/zEYZWNtLVihnR2IDv+7tSgiDoFWi/koAUdfJ1VMw+hReUaLg3vE9CmPK
-tQiTy+NvmrYaBPb75I0Jz3Lrz1+mZSjLKO25iT84RIsxarBDd8iYh2avWkCmvtiR
-Lcif8wLxi2QWC1rZoCA3Ip+Hg9J9vxHlzl6xT01WjUStMhfwrUW6QBpur7FJ+aKM
-oaMoHieFNCG4qIkWVEHHSsUpLum4SYuEnyNH3tkjbrdldZanCvanGq+TZyX0buRt
-4zk7FGcu8iulUkAP/o/WZM0HKinFN/vuzNVA8iqcO/BBhewhzpqmmTMnWmAO8WPP
-DJMABRtXJnVuPh1CI5pValzomLJM4/YvnJGppzI1QiHHNA9JtxVmj2xf8jaXa1LJ
-WUNJK+RvUWkRUxpWiKQQO9FAyTPLRtDQGN9eUeDR1U0jqRk/gNT8smHGN6I4H+NR
-3X3/1lMfcm1dvk654ql8mxjCA54IpTPr/icUMc7cSzyIiQ7Tp9PZTl1gHh281ZWf
-P7d2+fuJMlkjtM7oAwf+tI8CAwEAAQ==
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv6m1zBF8lZOCqcxf8hnj
+kvHwuWdU8s4rBWaxKXH/vDDUklcCS5uhSnmjhxWca9suubaG3lW4HxlCilkeJPVf
+jimg5Q8ZqWrR3OoOihEpcG9iJZTOEpsEk7VtEiabgacBG3Quv9JslTrDe95Fn801
+t9d21HXwgMrHeHpWDOn31Dr+woEH+kwySUWa6L/ZbnGwSNP7eeDTE7Amz1RMDk3t
+8EWGq58u0IQatPcEH09aUQlKzk6MIiALkZ9ILBKCBk6d2WCokKnsdBctovNbxwSx
+hP1qst1r+Yc8iPBZozsDC0ZsC5jXCkcODI3OC0tkNtYzN2XKalW5R0DjDRUDmGhT
+zQIDAQAB
 -----END PUBLIC KEY-----
 """
 
@@ -34,55 +29,80 @@ class ViewController: NSViewController {
             return
         }
         
-        var scope: [String] = []
-        
+        var scopeTypes: [TGPScopeType] = []
         if (personalDetailsCheckView.state == .on) {
-            scope.append(TGPScopePersonalDetails)
+            scopeTypes.append(TGPPersonalDetails(nativeNames: nativeNamesCheckView.state == .on))
         }
-        if (passportCheckView.state == .on) {
-            scope.append(TGPScopePassport)
+        
+        let oneOfIdentityDocuments = identityOneOfCheckView.state == .on
+        let identityIndividualSelfie = identitySelfieCheckView.state == .on && !oneOfIdentityDocuments
+        let identityOneOfSelfie = identitySelfieCheckView.state == .on && oneOfIdentityDocuments
+        let identityIndividualTranslation = identityTranslationCheckView.state == .on && !oneOfIdentityDocuments
+        let identityOneOfTranslation = identityTranslationCheckView.state == .on && oneOfIdentityDocuments
+        var identityTypes: [TGPScopeType] = []
+        if passportCheckView.state == .on {
+            identityTypes.append(TGPIdentityDocument(type: .passport, selfie: identityIndividualSelfie, translation: identityIndividualTranslation))
         }
-        if (identityCardCheckView.state == .on) {
-            scope.append(TGPScopeIdentityCard)
+        if identityCardCheckView.state == .on {
+            identityTypes.append(TGPIdentityDocument(type: .identityCard, selfie: identityIndividualSelfie, translation: identityIndividualTranslation))
         }
-        if (driversLicenseCheckView.state == .on) {
-            scope.append(TGPScopeDriverLicense)
+        if driversLicenseCheckView.state == .on {
+            identityTypes.append(TGPIdentityDocument(type: .driversLicense, selfie: identityIndividualSelfie, translation: identityIndividualTranslation))
         }
-        if (selfieCheckView.state == .on) {
-            scope.append(TGPScopeIdSelfie)
+        if oneOfIdentityDocuments {
+            scopeTypes.append(TGPOneOfScopeType(types: identityTypes, selfie: identityOneOfSelfie, translation: identityOneOfTranslation))
+        } else {
+            scopeTypes.append(contentsOf: identityTypes)
         }
+        
         if (addressCheckView.state == .on) {
-            scope.append(TGPScopeAddress)
+            scopeTypes.append(TGPAddress())
         }
+        
+        let oneOfAddressDocuments = addressOneOfCheckView.state == .on
+        let addressIndividualTranslation = addressTranslationCheckView.state == .on && !oneOfAddressDocuments
+        let addressOneOfTranslation = addressTranslationCheckView.state == .on && oneOfAddressDocuments
+        var addressTypes: [TGPScopeType] = []
+        
         if (utilityBillCheckView.state == .on) {
-            scope.append(TGPScopeUtilityBill)
+            addressTypes.append(TGPAddressDocument(type: .utilityBill, translation: addressIndividualTranslation))
         }
         if (bankStatementCheckView.state == .on) {
-            scope.append(TGPScopeBankStatement)
+            addressTypes.append(TGPAddressDocument(type: .bankStatement, translation: addressIndividualTranslation))
         }
         if (rentalAgreementCheckView.state == .on) {
-            scope.append(TGPScopeRentalAgreement)
+            addressTypes.append(TGPAddressDocument(type: .rentalAgreement, translation: addressIndividualTranslation))
         }
+        if oneOfAddressDocuments {
+            scopeTypes.append(TGPOneOfScopeType(types: addressTypes, selfie: false, translation: addressOneOfTranslation))
+        } else {
+            scopeTypes.append(contentsOf: addressTypes)
+        }
+        
         if (phoneNumberCheckView.state == .on) {
-            scope.append(TGPScopePhoneNumber)
+            scopeTypes.append(TGPPhoneNumber())
         }
         if (emailAddressCheckView.state == .on) {
-            scope.append(TGPScopeEmailAddress)
+            scopeTypes.append(TGPEmailAddress())
         }
+    
+        let scope = TGPScope(types: scopeTypes)
         
         let botConfig = TGPBotConfig(botId: ExampleBotId, publicKey: ExampleBotPublicKey)
-        let payload = "abcdef"
+        let nonce = UUID.init().uuidString
         
-        let request = TGPRequest(botConfig: botConfig)
-        request.perform(withScope: scope, payload: payload) { (result, error) in
-            switch result {
-            case .succeed:
-                self.showResultAlert(message: "Succeed")
-            case .cancelled:
-                self.showResultAlert(message: "Cancelled")
-            default:
-                if let error = error {
-                    self.showResultAlert(message: "Failed: \(error.localizedDescription)")
+        if let scope = scope {
+            let request = TGPRequest(botConfig: botConfig)
+            request.perform(with: scope, nonce: nonce) { (result, error) in
+                switch result {
+                case .succeed:
+                    self.showResultAlert(message: "Succeed")
+                case .cancelled:
+                    self.showResultAlert(message: "Cancelled")
+                default:
+                    if let error = error {
+                        self.showResultAlert(message: "Failed: \(error.localizedDescription)")
+                    }
                 }
             }
         }
@@ -97,14 +117,19 @@ class ViewController: NSViewController {
     }
     
     @IBOutlet weak var personalDetailsCheckView: NSButton!
+    @IBOutlet weak var nativeNamesCheckView: NSButton!
     @IBOutlet weak var passportCheckView: NSButton!
     @IBOutlet weak var identityCardCheckView: NSButton!
     @IBOutlet weak var driversLicenseCheckView: NSButton!
-    @IBOutlet weak var selfieCheckView: NSButton!
+    @IBOutlet weak var identityOneOfCheckView: NSButton!
+    @IBOutlet weak var identityTranslationCheckView: NSButton!
+    @IBOutlet weak var identitySelfieCheckView: NSButton!
     @IBOutlet weak var addressCheckView: NSButton!
     @IBOutlet weak var utilityBillCheckView: NSButton!
     @IBOutlet weak var bankStatementCheckView: NSButton!
     @IBOutlet weak var rentalAgreementCheckView: NSButton!
+    @IBOutlet weak var addressOneOfCheckView: NSButton!
+    @IBOutlet weak var addressTranslationCheckView: NSButton!
     @IBOutlet weak var phoneNumberCheckView: NSButton!
     @IBOutlet weak var emailAddressCheckView: NSButton!
 }

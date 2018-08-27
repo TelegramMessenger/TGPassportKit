@@ -116,8 +116,7 @@ static NSString *const TGPIncorrectSetupException = @"IncorrectSetupException";
     return NO;
 }
 
-+ (BOOL)isRegisteredQueriesScheme:(NSString *)urlScheme
-{
++ (BOOL)isRegisteredQueriesScheme:(NSString *)urlScheme {
     static NSArray *appQueriesSchemes = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

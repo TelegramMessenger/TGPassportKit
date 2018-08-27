@@ -14,7 +14,9 @@ static NSString *const TGPQueryBotIdKey = @"bot_id";
 static NSString *const TGPQueryScopeKey = @"scope";
 static NSString *const TGPQueryCallbackURLKey = @"callback_url";
 static NSString *const TGPQueryPublicKeyKey = @"public_key";
+static NSString *const TGPQueryNonceKey = @"nonce";
 static NSString *const TGPQueryPayloadKey = @"payload";
+static NSString *const TGPQueryPayloadArgument = @"nonce";
 
 static NSString *const TGPResultHost = @"passport";
 static NSString *const TGPResultSuccessPath = @"/success";
@@ -29,7 +31,7 @@ static NSString *const TGPErrorMessageBotInvalid = @"BOT_INVALID";
 static NSString *const TGPErrorMessagePublicKeyRequired = @"PUBLIC_KEY_REQUIRED";
 static NSString *const TGPErrorMessagePublicKeyInvalid = @"PUBLIC_KEY_INVALID";
 static NSString *const TGPErrorMessageScopeEmpty = @"SCOPE_EMPTY";
-static NSString *const TGPErrorMessagePayloadEmpty = @"PAYLOAD_EMPTY";
+static NSString *const TGPErrorMessageNonceEmpty = @"NONCE_EMPTY";
 static NSString *const TGPErrorMessageTelegramNotInstalled = @"TELEGRAM_NOT_INSTALLED";
 static NSString *const TGPErrorMessageUserNotLoggedIn = @"USER_NOT_LOGGED_IN";
 
@@ -58,18 +60,28 @@ static NSString *const TGPErrorMessageUserNotLoggedIn = @"USER_NOT_LOGGED_IN";
 
 #pragma mark - Request Execution
 
-- (void)performWithScope:(NSArray<NSString *> *)scope payload:(NSString *)payload completionHandler:(TGPRequestCompletionHandler)completionHandler {
+- (void)performWithScope:(TGPScope *)scope nonce:(NSString *)nonce completionHandler:(TGPRequestCompletionHandler)completionHandler {
     if (![TGPAppDelegate isTelegramAppInstalled]) {
         completionHandler(TGPRequestResultFailed, [TGPRequest errorWithMessage:TGPErrorMessageTelegramNotInstalled]);
         return;
     }
     
-    if (payload.length == 0) {
-        completionHandler(TGPRequestResultFailed, [TGPRequest errorWithMessage:TGPErrorMessagePayloadEmpty]);
+    if (self.botConfig.botId <= 0) {
+        completionHandler(TGPRequestResultFailed, [TGPRequest errorWithMessage:TGPErrorMessageBotInvalid]);
         return;
     }
     
-    if (scope.count == 0) {
+    if (self.botConfig.publicKey.length == 0) {
+        completionHandler(TGPRequestResultFailed, [TGPRequest errorWithMessage:TGPErrorMessagePublicKeyRequired]);
+        return;
+    }
+    
+    if (nonce.length == 0) {
+        completionHandler(TGPRequestResultFailed, [TGPRequest errorWithMessage:TGPErrorMessageNonceEmpty]);
+        return;
+    }
+    
+    if (scope == nil) {
         completionHandler(TGPRequestResultFailed, [TGPRequest errorWithMessage:TGPErrorMessageScopeEmpty]);
         return;
     }
@@ -77,8 +89,9 @@ static NSString *const TGPErrorMessageUserNotLoggedIn = @"USER_NOT_LOGGED_IN";
     NSMutableDictionary *queryArguments = [NSMutableDictionary new];
     queryArguments[TGPQueryBotIdKey] = @(self.botConfig.botId);
     queryArguments[TGPQueryPublicKeyKey] = self.botConfig.publicKey;
-    queryArguments[TGPQueryScopeKey] = [TGPRequest jsonStringWithObject:scope];
-    queryArguments[TGPQueryPayloadKey] = payload;
+    queryArguments[TGPQueryScopeKey] = scope.jsonString;
+    queryArguments[TGPQueryNonceKey] = nonce;
+    queryArguments[TGPQueryPayloadKey] = TGPQueryPayloadArgument;
     
     NSURL *callbackURL = [TGPRequest URLWithScheme:self.botURLScheme host:TGPResultHost path:nil queryArguments:nil];
     queryArguments[TGPQueryCallbackURLKey] = callbackURL.absoluteString;
@@ -145,8 +158,8 @@ static NSString *const TGPErrorMessageUserNotLoggedIn = @"USER_NOT_LOGGED_IN";
         errorCode = TGPRequestPublicKeyInvalidErrorCode;
     } else if ([errorMessage isEqualToString:TGPErrorMessageScopeEmpty]) {
         errorCode = TGPRequestScopeEmptyErrorCode;
-    } else if ([errorMessage isEqualToString:TGPErrorMessagePayloadEmpty]) {
-        errorCode = TGPRequestPayloadEmptyErrorCode;
+    } else if ([errorMessage isEqualToString:TGPErrorMessageNonceEmpty]) {
+        errorCode = TGPRequestNonceEmptyErrorCode;
     } else if ([errorMessage isEqualToString:TGPErrorMessageTelegramNotInstalled]) {
         errorCode = TGPRequestTelegramNotInstalledErrorCode;
     } else if ([errorMessage isEqualToString:TGPErrorMessageUserNotLoggedIn]) {
@@ -170,8 +183,8 @@ static NSString *const TGPErrorMessageUserNotLoggedIn = @"USER_NOT_LOGGED_IN";
             localizedDescription = NSLocalizedString(@"Scope can not be empty", @"");
             break;
             
-        case TGPRequestPayloadEmptyErrorCode:
-            localizedDescription = NSLocalizedString(@"Bot payload can not be empty", @"");
+        case TGPRequestNonceEmptyErrorCode:
+            localizedDescription = NSLocalizedString(@"Bot nonce can not be empty", @"");
             break;
             
         case TGPRequestTelegramNotInstalledErrorCode:

@@ -1,0 +1,5 @@
+"PassportKit.Button.Title" = "ورود با حساب کاربری تلگرام";
+"PassportKit.Button.GetTelegramAlertTitle" = "دریافت پیام‌رسان تلگرام";
+"PassportKit.Button.GetTelegramAlertMessage" = "برای استفاده از پاسپورت تلگرامی شما باید پیام‌رسان تلگرام را نصب کنید";
+"PassportKit.Button.GetTelegramAlertNotNow" = "الان نه";
+"PassportKit.Button.GetTelegramAlertInstall" = "نصب";

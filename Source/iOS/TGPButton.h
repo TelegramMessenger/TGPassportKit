@@ -32,14 +32,14 @@ typedef NS_OPTIONS(NSUInteger, TGPButtonStyle)
 @property (nonatomic, strong) TGPBotConfig *botConfig;
 
 /**
- The scope of requested Telegram Passport fields
+ The scope of requested Telegram Passport data
  */
-@property (nonatomic, strong) NSArray<NSString *> *scope;
+@property (nonatomic, strong) TGPScope *scope;
 
 /**
- Bot specified payload
+ Bot specified nonce
  */
-@property (nonatomic, strong) NSString *payload;
+@property (nonatomic, strong) NSString *nonce;
 
 /**
  The desired button style

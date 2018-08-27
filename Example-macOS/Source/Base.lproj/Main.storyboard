@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
@@ -91,7 +91,7 @@
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Telegram Passport Example" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
-                        <rect key="contentRect" x="561" y="405" width="516" height="220"/>
+                        <rect key="contentRect" x="561" y="405" width="516" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
@@ -110,19 +110,27 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="516" height="211"/>
+                        <rect key="frame" x="0.0" y="0.0" width="516" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yap-Zx-yAK">
-                                <rect key="frame" x="18" y="150" width="142" height="18"/>
+                                <rect key="frame" x="18" y="209" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Personal Details" bezelStyle="regularSquare" imagePosition="left" inset="2" id="rCP-Ld-kot">
+                                <buttonCell key="cell" type="check" title="Personal Details" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rCP-Ld-kot">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFk-5n-748">
+                                <rect key="frame" x="35" y="189" width="142" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Native Names" bezelStyle="regularSquare" imagePosition="left" inset="2" id="0Zg-0a-uhZ">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system" size="12"/>
+                                </buttonCell>
+                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Shy-o8-otY">
-                                <rect key="frame" x="18" y="122" width="142" height="18"/>
+                                <rect key="frame" x="18" y="169" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Passport" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qeI-1T-9Wg">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -130,7 +138,7 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2yh-TR-5wh">
-                                <rect key="frame" x="18" y="102" width="142" height="18"/>
+                                <rect key="frame" x="18" y="149" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Identity Card" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wy3-Rh-faN">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -138,7 +146,7 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B2t-fd-D9s">
-                                <rect key="frame" x="18" y="82" width="142" height="18"/>
+                                <rect key="frame" x="18" y="129" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Driver's License" bezelStyle="regularSquare" imagePosition="left" inset="2" id="3Jz-xh-LUo">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -146,7 +154,7 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbY-6t-dXm">
-                                <rect key="frame" x="189" y="150" width="142" height="18"/>
+                                <rect key="frame" x="189" y="209" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Residential Address" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Eis-As-At1">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -154,7 +162,7 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kuF-h2-aK8">
-                                <rect key="frame" x="189" y="122" width="142" height="18"/>
+                                <rect key="frame" x="189" y="169" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Utility Bill" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Yo2-8K-6l6">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -162,31 +170,47 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sG3-cG-S9D">
-                                <rect key="frame" x="189" y="102" width="142" height="18"/>
+                                <rect key="frame" x="189" y="149" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Bank Statement" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="NEp-Sl-ZwK">
+                                <buttonCell key="cell" type="check" title="Bank Statement" bezelStyle="regularSquare" imagePosition="left" inset="2" id="NEp-Sl-ZwK">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uuz-dZ-t7p">
-                                <rect key="frame" x="189" y="82" width="142" height="18"/>
+                                <rect key="frame" x="189" y="129" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Rental Agreement" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="BHo-d5-4Wx">
+                                <buttonCell key="cell" type="check" title="Rental Agreement" bezelStyle="regularSquare" imagePosition="left" inset="2" id="BHo-d5-4Wx">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vab-cS-zUb">
-                                <rect key="frame" x="18" y="54" width="142" height="18"/>
+                                <rect key="frame" x="35" y="89" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Require Selfie" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="HBo-uZ-aYS">
+                                <buttonCell key="cell" type="check" title="Translation" bezelStyle="regularSquare" imagePosition="left" inset="2" id="HBo-uZ-aYS">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="system" size="12"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dYX-09-teo">
+                                <rect key="frame" x="35" y="109" width="142" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="One Of" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lfN-Yp-gJp">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system" size="12"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3og-Uw-6Pg">
+                                <rect key="frame" x="206" y="89" width="142" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Translation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Rx0-3g-eYB">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system" size="12"/>
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LrF-1P-J7q">
-                                <rect key="frame" x="383" y="150" width="142" height="18"/>
+                                <rect key="frame" x="383" y="209" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Phone Number" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="3gw-ek-kEN">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -194,7 +218,7 @@
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="knC-Jr-7ah">
-                                <rect key="frame" x="383" y="129" width="142" height="18"/>
+                                <rect key="frame" x="383" y="189" width="142" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Email Address" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xed-eT-Dup">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -202,27 +226,27 @@
                                 </buttonCell>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a7j-oa-I5B">
-                                <rect key="frame" x="18" y="174" width="140" height="17"/>
+                                <rect key="frame" x="18" y="233" width="140" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identity:" id="7gw-9r-uZA">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Identity" id="7gw-9r-uZA">
                                     <font key="font" metaFont="systemSemibold" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDz-Aa-078">
-                                <rect key="frame" x="189" y="174" width="140" height="17"/>
+                                <rect key="frame" x="189" y="233" width="140" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Address:" id="1pb-tc-qHv">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Address" id="1pb-tc-qHv">
                                     <font key="font" metaFont="systemSemibold" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Ru-P6-WP8">
-                                <rect key="frame" x="383" y="174" width="140" height="17"/>
+                                <rect key="frame" x="383" y="233" width="140" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Contact Details:" id="OP2-6s-kbP">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Contact Details" id="OP2-6s-kbP">
                                     <font key="font" metaFont="systemSemibold" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -239,19 +263,40 @@
                                     <action selector="loginPressed:" target="XfG-lQ-9wD" id="oyu-ew-t8I"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zm5-78-QGX">
+                                <rect key="frame" x="35" y="69" width="142" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Selfie" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="joQ-3i-6Mu">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system" size="12"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Od-lV-3Vx">
+                                <rect key="frame" x="206" y="109" width="142" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="One Of" bezelStyle="regularSquare" imagePosition="left" inset="2" id="t3n-nJ-NuB">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system" size="12"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="addressCheckView" destination="lbY-6t-dXm" id="HeR-IS-0TY"/>
+                        <outlet property="addressOneOfCheckView" destination="0Od-lV-3Vx" id="hkm-UV-TSX"/>
+                        <outlet property="addressTranslationCheckView" destination="3og-Uw-6Pg" id="Ba0-Fg-EBe"/>
                         <outlet property="bankStatementCheckView" destination="sG3-cG-S9D" id="y42-H4-wJ6"/>
                         <outlet property="driversLicenseCheckView" destination="B2t-fd-D9s" id="ZOy-8R-ftl"/>
                         <outlet property="emailAddressCheckView" destination="knC-Jr-7ah" id="O34-nd-NvA"/>
                         <outlet property="identityCardCheckView" destination="2yh-TR-5wh" id="ehn-AV-MTb"/>
+                        <outlet property="identityOneOfCheckView" destination="dYX-09-teo" id="JrA-NJ-BQC"/>
+                        <outlet property="identitySelfieCheckView" destination="Zm5-78-QGX" id="raD-G7-M8I"/>
+                        <outlet property="identityTranslationCheckView" destination="Vab-cS-zUb" id="mfz-qo-XrX"/>
+                        <outlet property="nativeNamesCheckView" destination="XFk-5n-748" id="UG7-0O-gRz"/>
                         <outlet property="passportCheckView" destination="Shy-o8-otY" id="YRC-Xc-jqg"/>
                         <outlet property="personalDetailsCheckView" destination="Yap-Zx-yAK" id="dWq-Os-wok"/>
                         <outlet property="phoneNumberCheckView" destination="LrF-1P-J7q" id="gwd-3A-bVt"/>
                         <outlet property="rentalAgreementCheckView" destination="Uuz-dZ-t7p" id="UzZ-yS-Q6e"/>
-                        <outlet property="selfieCheckView" destination="Vab-cS-zUb" id="Udh-Og-Qyp"/>
                         <outlet property="utilityBillCheckView" destination="kuF-h2-aK8" id="WvE-EI-Pn1"/>
                     </connections>
                 </viewController>

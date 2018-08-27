@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSArray<Scope *> *scopes;
 @property (nonatomic, strong) SwitchableScope *roundScope;
-@property (nonatomic, strong) NSString *payload;
+@property (nonatomic, strong) NSString *nonce;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -29,19 +29,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.payload = @"81c2a9332373ca4a4ab2d4735a0c633e59ca55009badc16e7d572aebbc8e91ee";
+    self.nonce = [[[NSUUID alloc] init] UUIDString];
     self.scopes = @[
-        [ComplexScope scopeWithTitle:@"Identity" scope:@[TGPScopeIdDocument, TGPScopeIdSelfie]],
-        [ComplexScope scopeWithTitle:@"Address" scope:@[TGPScopeAddressDocument]],
-        [SwitchableScope scopeWithTitle:@"Phone Number" scope:TGPScopePhoneNumber enabled:true],
-        [SwitchableScope scopeWithTitle:@"Email Address" scope:TGPScopeEmailAddress enabled:true]
+        [ComplexScope scopeWithTitle:@"Identity" scope:@[[[TGPPersonalDetails alloc] init], [[TGPIdentityDocument alloc] initWithType:TGPIdentityDocumentTypePassport selfie:false translation:false]] oneOf:false translation:false selfie:false],
+        [ComplexScope scopeWithTitle:@"Address" scope:@[[[TGPAddress alloc] init]] oneOf:false translation:false selfie:false],
+        [SwitchableScope scopeWithTitle:@"Phone Number" scope:[[TGPPhoneNumber alloc] init] enabled:true],
+        [SwitchableScope scopeWithTitle:@"Email Address" scope:[[TGPEmailAddress alloc] init] enabled:true]
     ];
     
-    self.roundScope = [SwitchableScope scopeWithTitle:@"Round" scope:TGPScopeEmailAddress enabled:false];
+    self.roundScope = [SwitchableScope scopeWithTitle:@"Round" scope:nil enabled:false];
     
     self.passportButton.delegate = self;
     self.passportButton.botConfig = [[TGPBotConfig alloc] initWithBotId:ExampleBotId publicKey:ExampleBotPublicKey];
-    self.passportButton.payload = self.payload;
+    self.passportButton.nonce = self.nonce;
 
     [self updateButtonScope];
 }
@@ -51,7 +51,7 @@
     for (Scope *scope in self.scopes) {
         [finalScope addObjectsFromArray:scope.passportScope];
     }
-    self.passportButton.scope = finalScope;
+    self.passportButton.scope = [[TGPScope alloc] initWithTypes:finalScope];
 }
 
 - (void)updateScopeAtIndex:(NSUInteger)index withScope:(Scope *)scope {

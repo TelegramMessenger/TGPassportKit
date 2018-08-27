@@ -12,8 +12,7 @@ NSString *const TGPLocalizedStringPrefix = @"PassportKit.";
     return NSLocalizedStringWithDefaultValue([TGPLocalizedStringPrefix stringByAppendingString:key], TGPTableName, [self stringsBundle], defaultValue, @"");
 }
 
-+ (NSBundle *)stringsBundle
-{
++ (NSBundle *)stringsBundle {
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -26,7 +25,6 @@ NSString *const TGPLocalizedStringPrefix = @"PassportKit.";
 @end
 
 
-NSString *TGPLocalized(NSString *key, NSString *defaultValue)
-{
+NSString *TGPLocalized(NSString *key, NSString *defaultValue) {
     return [TGPUtilities localizedStringForKey:key defaultValue:defaultValue];
 }

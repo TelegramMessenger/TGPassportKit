@@ -1,12 +1,12 @@
 #import <TGPassportKit/TGPBotConfig.h>
+#import <TGPassportKit/TGPScope.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  Describes a result of a request
  */
-typedef NS_OPTIONS(NSUInteger, TGPRequestResult)
-{
+typedef NS_ENUM(NSUInteger, TGPRequestResult) {
     /**
      The request was cancelled by the user
     */
@@ -25,14 +25,13 @@ typedef NS_OPTIONS(NSUInteger, TGPRequestResult)
 /**
  Request error codes
  */
-typedef NS_ENUM(NSInteger, TGPRequestErrorCode)
-{
+typedef NS_ENUM(NSUInteger, TGPRequestErrorCode) {
     TGPRequestUnknownErrorCode,
     TGPRequestBotInvalidErrorCode,
     TGPRequestPublicKeyRequiredErrorCode,
     TGPRequestPublicKeyInvalidErrorCode,
     TGPRequestScopeEmptyErrorCode,
-    TGPRequestPayloadEmptyErrorCode,
+    TGPRequestNonceEmptyErrorCode,
     TGPRequestTelegramNotInstalledErrorCode,
     TGPRequestUserNotLoggedInErrorCode
 };
@@ -65,13 +64,13 @@ typedef void (^TGPRequestCompletionHandler)(TGPRequestResult result, NSError * _
 - (instancetype)initWithBotConfig:(TGPBotConfig *)botConfig;
 
 /**
- Initiates a Telegram Passport request with specified scope, payload and completion handler
+ Initiates a Telegram Passport request with specified scope, nonce and completion handler
 
  @param scope the scope of the request
- @param payload the custom bot payload
+ @param nonce the cryptographically secure unique identifier which allows the service to identify a request
  @param completionHandler the callback
  */
-- (void)performWithScope:(NSArray<NSString *> *)scope payload:(NSString *)payload completionHandler:(TGPRequestCompletionHandler)completionHandler;
+- (void)performWithScope:(TGPScope *)scope nonce:(NSString *)nonce completionHandler:(TGPRequestCompletionHandler)completionHandler;
 
 @end
 

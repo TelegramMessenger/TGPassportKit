@@ -74,7 +74,7 @@ const CGFloat TGPassportButtonHeight = 50.0f;
         TGPRequest *request = [[TGPRequest alloc] initWithBotConfig:self.botConfig];
         
         __weak id<TGPButtonDelegate> delegate = self.delegate;
-        [request performWithScope:self.scope payload:self.payload completionHandler:^(TGPRequestResult result, NSError * _Nullable error) {
+        [request performWithScope:self.scope nonce:self.nonce completionHandler:^(TGPRequestResult result, NSError * _Nullable error) {
             id strongDelegate = delegate;
             if ([strongDelegate respondsToSelector:@selector(passportButton:didCompleteWithResult:error:)]) {
                 [strongDelegate passportButton:self didCompleteWithResult:result error:error];

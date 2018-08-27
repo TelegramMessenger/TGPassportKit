@@ -21,71 +21,53 @@
     self.scope = scope;
     [self.tableView reloadData];
     
-    self.selfieSwitchView.on = [scope.passportScope containsObject:TGPScopeIdSelfie];
+    self.oneOfSwitchView.on = scope.oneOf;
+    self.translationSwitchView.on = scope.translation;
+    self.selfieSwitchView.on = scope.selfie;
+}
+
+- (IBAction)oneOfValueChanged:(UISwitch *)sender {
+    [self updateWithScope:[self.scope updateWithScope:self.scope.types oneOf:sender.on translation:self.translationSwitchView.on selfie:self.selfieSwitchView.on]];
+}
+
+- (IBAction)translationValueChanged:(UISwitch *)sender {
+    [self updateWithScope:[self.scope updateWithScope:self.scope.types oneOf:self.oneOfSwitchView.on translation:sender.on selfie:self.selfieSwitchView.on]];
 }
 
 - (IBAction)selfieValueChanged:(UISwitch *)sender {
-    NSMutableArray *scope = [self.scope.passportScope mutableCopy];
-    if (sender.on && ![scope containsObject:TGPScopeIdSelfie])
-        [scope addObject:TGPScopeIdSelfie];
-    else if (!sender.on && [scope containsObject:TGPScopeIdSelfie])
-        [scope removeObject:TGPScopeIdSelfie];
-    [self updateWithScope:[self.scope updateWithScope:scope]];
+    [self updateWithScope:[self.scope updateWithScope:self.scope.types oneOf:self.oneOfSwitchView.on translation:self.translationSwitchView.on selfie:sender.on]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray<NSString *> *scope = self.scope.passportScope;
+    NSArray<id<TGPScopeType>> *scope = self.scope.types;
     
     UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     bool checked = false;
-    bool enabled = true;
     
     if (indexPath.section == 0) {
         switch (indexPath.row) {
             case 0:
-                checked = scope.count == 0;
+                checked = [self scope:scope containsType:[[TGPPersonalDetails alloc] init]];
                 break;
                 
             case 1:
-                checked = [scope containsObject:TGPScopePersonalDetails];
+                checked = [self scope:scope containsType:[[TGPIdentityDocument alloc] initWithType:TGPIdentityDocumentTypePassport selfie:false translation:false]];
                 break;
                 
             case 2:
-                checked = [scope containsObject:TGPScopeIdDocument];
+                checked = [self scope:scope containsType:[[TGPIdentityDocument alloc] initWithType:TGPIdentityDocumentTypeIdentityCard selfie:false translation:false]];
                 break;
-                
+            
             case 3:
-                checked = [scope containsObject:TGPScopePassport] || [scope containsObject:TGPScopeIdentityCard] || [scope containsObject:TGPScopeDriverLicense];
+                checked = [self scope:scope containsType:[[TGPIdentityDocument alloc] initWithType:TGPIdentityDocumentTypeDriversLicense selfie:false translation:false]];
                 break;
                 
             default:
                 break;
         }
-    } else if (indexPath.section == 1) {
-        enabled = [scope containsObject:TGPScopePassport] || [scope containsObject:TGPScopeIdentityCard] || [scope containsObject:TGPScopeDriverLicense];
-        switch (indexPath.row) {
-            case 0:
-                checked = [scope containsObject:TGPScopePassport];
-                break;
-                
-            case 1:
-                checked = [scope containsObject:TGPScopeIdentityCard];
-                break;
-                
-            case 2:
-                checked = [scope containsObject:TGPScopeDriverLicense];
-                break;
-                
-            default:
-                break;
-        }
-    } else if (indexPath.section == 2) {
-        enabled = [scope containsObject:TGPScopePassport] || [scope containsObject:TGPScopeIdentityCard] || [scope containsObject:TGPScopeDriverLicense] || [scope containsObject:TGPScopeIdDocument];
-        cell.contentView.userInteractionEnabled = enabled;
     }
     
     cell.accessoryType = checked ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    cell.contentView.alpha = enabled ? 1.0f : 0.4f;
     
     return cell;
 }
@@ -93,67 +75,38 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:true];
     
-    NSArray<NSString *> *currentScope = self.scope.passportScope;
-    bool selfie = [currentScope containsObject:TGPScopeIdSelfie];
-    
     if (indexPath.section == 0) {
-        NSMutableArray<NSString *> *scope = [[NSMutableArray alloc] init];
-        switch (indexPath.row) {
-            case 1:
-                [scope addObject:TGPScopePersonalDetails];
-                selfie = false;
-                break;
-                
-            case 2:
-                [scope addObject:TGPScopeIdDocument];
-                break;
-                
-            case 3: {
-                if (![scope containsObject:TGPScopePassport] && ![scope containsObject:TGPScopeIdentityCard] && ![scope containsObject:TGPScopeDriverLicense]) {
-                    [scope addObject:TGPScopePassport];
-                } else {
-                    [scope addObjectsFromArray:currentScope];
-                }
-            }
-                break;
-                
-            default:
-                selfie = false;
-                break;
-        }
-        if (selfie) {
-            [scope addObject:TGPScopeIdSelfie];
-        }
-        [self updateWithScope:[self.scope updateWithScope:scope]];
-    } else if (indexPath.section == 1) {
-        NSMutableArray<NSString *> *scope = [currentScope mutableCopy];
-        [scope removeObject:TGPScopeIdDocument];
-        
+        NSMutableArray<id<TGPScopeType>> *scope = [self.scope.types mutableCopy];
+    
         switch (indexPath.row) {
             case 0:
-                [self toggleType:TGPScopePassport inScope:scope];
+                [self toggleType:[[TGPPersonalDetails alloc] init] inScope:scope];
                 break;
                 
             case 1:
-                [self toggleType:TGPScopeIdentityCard inScope:scope];
+                [self toggleType:[[TGPIdentityDocument alloc] initWithType:TGPIdentityDocumentTypePassport selfie:false translation:false] inScope:scope];
                 break;
                 
             case 2:
-                [self toggleType:TGPScopeDriverLicense inScope:scope];
+                [self toggleType:[[TGPIdentityDocument alloc] initWithType:TGPIdentityDocumentTypeIdentityCard selfie:false translation:false] inScope:scope];
+                break;
+                
+            case 3:
+                [self toggleType:[[TGPIdentityDocument alloc] initWithType:TGPIdentityDocumentTypeDriversLicense selfie:false translation:false] inScope:scope];
                 break;
                 
             default:
                 break;
         }
-        if (![scope containsObject:TGPScopePassport] && ![scope containsObject:TGPScopeIdentityCard] && ![scope containsObject:TGPScopeDriverLicense]) {
-            [scope addObjectsFromArray:currentScope];
-        }
-        [self updateWithScope:[self.scope updateWithScope:scope]];
+        [self updateWithScope:[self.scope updateWithScope:scope oneOf:self.oneOfSwitchView.on translation:self.translationSwitchView.on selfie:self.selfieSwitchView.on]];
     }
 }
 
-- (void)toggleType:(NSString *)type inScope:(NSMutableArray *)scope
-{
+- (BOOL)scope:(NSArray<id<TGPScopeType>> *)scope containsType:(id<TGPScopeType>)type {
+    return [scope containsObject:type];
+}
+
+- (void)toggleType:(id<TGPScopeType>)type inScope:(NSMutableArray *)scope {
     if ([scope containsObject:type])
         [scope removeObject:type];
     else
@@ -161,7 +114,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section != 2;
+    return indexPath.section != 1;
 }
 
 @end
