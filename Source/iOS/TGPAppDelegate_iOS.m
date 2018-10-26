@@ -97,6 +97,7 @@ static NSString *const TGPIncorrectSetupException = @"IncorrectSetupException";
             @"ph.telegra.Telegraph",
             @"org.telegram.TelegramEnterprise",
             @"org.telegram.Telegram-iOS",
+            @"org.telegram.TelegramHD",
         ];
     });
     return [bundleIdentifiers containsObject:bundleIdentifer];
