@@ -122,7 +122,7 @@ If you want to design a custom UI and behavior, you can invoke a Passport reques
 - (void)performPassportRequest {
     TGPBotConfig *botConfig = [[TGPBotConfig alloc] initWithBotId:{bot_id} 
                                                         publicKey:@"{bot_public_key}"];
-    TGPRequest *request = [[TGPRequest alloc] initWithBotConfig:self.botConfig];
+    TGPRequest *request = [[TGPRequest alloc] initWithBotConfig:botConfig];
     [request performWithScope:[[TGPScope alloc] initWithJSONString:@"{\"data\":[\"id_document\",\"phone_number\"],\"v\":1}"]
                         nonce:@"{request_nonce}" 
             completionHandler:^(TGPRequestResult result, NSError * _Nullable error) {
