@@ -2,7 +2,7 @@
 
 @implementation TGPBotConfig
 
-- (instancetype)initWithBotId:(int32_t)botId publicKey:(NSString *)publicKey {
+- (instancetype)initWithBotId:(int64_t)botId publicKey:(NSString *)publicKey {
     self = [super init];
     if (self != nil) {
         _botId = botId;
