@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The bot ID
  */
-@property (nonatomic, readonly) int32_t botId;
+@property (nonatomic, readonly) int64_t botId;
 
 /**
  The bot public key
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param botId the bot ID
  @param publicKey the bot public key
  */
-- (instancetype)initWithBotId:(int32_t)botId publicKey:(NSString *)publicKey;
+- (instancetype)initWithBotId:(int64_t)botId publicKey:(NSString *)publicKey;
 
 @end
 
